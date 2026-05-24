@@ -7,7 +7,7 @@ import seaborn as sns
 import os
 from io import BytesIO
 
-# ─── Page Config ────────────────────────────────────────────────────────────────
+
 st.set_page_config(
     page_title="Spotify Analytics 2023",
     page_icon="🎵",
@@ -15,7 +15,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ─── Global Styles ───────────────────────────────────────────────────────────────
+
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap');
@@ -169,7 +169,7 @@ div[data-testid="stSidebar"] .stButton > button:hover {
 </style>
 """, unsafe_allow_html=True)
 
-# ─── Matplotlib theme ────────────────────────────────────────────────────────────
+
 OBSIDIAN   = "#0D0D0D"
 CARD       = "#1C1C1C"
 GOLD       = "#C9A84C"
@@ -190,11 +190,11 @@ def apply_chart_style(fig, ax):
     ax.grid(axis='y', color='#2A2A2A', linewidth=0.6)
     ax.grid(axis='x', visible=False)
 
-# ─── Session state ───────────────────────────────────────────────────────────────
+
 if "page" not in st.session_state:
     st.session_state.page = "Home"
 
-# ─── Sidebar ─────────────────────────────────────────────────────────────────────
+ 
 with st.sidebar:
     st.markdown("""
     <div style='text-align:center; padding: 1.5rem 0 2rem 0;'>
@@ -216,7 +216,6 @@ with st.sidebar:
     uploaded = st.file_uploader("spotify-2023.csv", type=["csv"], label_visibility="collapsed")
     st.markdown("<p style='font-size:0.68rem; color:#555; text-align:center; margin-top:0.5rem;'>Upload the Spotify 2023 dataset<br>to power all visualisations</p>", unsafe_allow_html=True)
 
-# ─── Data loading ────────────────────────────────────────────────────────────────
 @st.cache_data
 def load_data(file):
     df = pd.read_csv(file, encoding='latin-1')
@@ -246,9 +245,7 @@ df = None
 if uploaded:
     df = load_data(uploaded)
 
-# ══════════════════════════════════════════════════════════════════════════════════
-# HOME PAGE
-# ══════════════════════════════════════════════════════════════════════════════════
+
 if st.session_state.page == "Home":
     col_hero, col_img = st.columns([3, 2], gap="large")
     with col_hero:
@@ -302,9 +299,7 @@ if st.session_state.page == "Home":
                 <p style='font-size:0.88rem;'>{desc}</p>
             </div>""", unsafe_allow_html=True)
 
-# ══════════════════════════════════════════════════════════════════════════════════
-# DASHBOARD PAGE
-# ══════════════════════════════════════════════════════════════════════════════════
+
 elif st.session_state.page == "Dashboard":
     if df is None:
         st.markdown("""
@@ -315,7 +310,7 @@ elif st.session_state.page == "Dashboard":
         </div>""", unsafe_allow_html=True)
         st.stop()
 
-    # ── KPI row ──────────────────────────────────────────────────────────────────
+ 
     st.markdown("<div class='luxury-subheading'>Overview</div>", unsafe_allow_html=True)
     st.markdown("<div class='luxury-heading'>2023 at a Glance</div>", unsafe_allow_html=True)
     st.markdown("<hr class='gold-divider'>", unsafe_allow_html=True)
@@ -328,7 +323,7 @@ elif st.session_state.page == "Dashboard":
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ── Top Artists ──────────────────────────────────────────────────────────────
+   
     st.markdown("<div class='luxury-subheading'>Artist Analysis</div>", unsafe_allow_html=True)
     st.markdown("<div class='luxury-heading'>Top 10 Artists by Hits</div>", unsafe_allow_html=True)
 
@@ -350,7 +345,6 @@ elif st.session_state.page == "Dashboard":
 
     st.markdown("<hr class='gold-divider'>", unsafe_allow_html=True)
 
-    # ── Top Songs & Artist Count ─────────────────────────────────────────────────
     col_a, col_b = st.columns(2, gap="large")
 
     with col_a:
@@ -384,7 +378,7 @@ elif st.session_state.page == "Dashboard":
 
     st.markdown("<hr class='gold-divider'>", unsafe_allow_html=True)
 
-    # ── Regression Plots ─────────────────────────────────────────────────────────
+   
     st.markdown("<div class='luxury-subheading'>Platform Reach</div>", unsafe_allow_html=True)
     st.markdown("<div class='luxury-heading'>Streams vs Playlist Inclusion</div>", unsafe_allow_html=True)
 
@@ -411,7 +405,7 @@ elif st.session_state.page == "Dashboard":
 
     st.markdown("<hr class='gold-divider'>", unsafe_allow_html=True)
 
-    # ── Correlation Heatmap ───────────────────────────────────────────────────────
+   
     st.markdown("<div class='luxury-subheading'>Audio DNA</div>", unsafe_allow_html=True)
     st.markdown("<div class='luxury-heading'>Feature Correlation Heatmap</div>", unsafe_allow_html=True)
 
@@ -435,7 +429,6 @@ elif st.session_state.page == "Dashboard":
 
     st.markdown("<hr class='gold-divider'>", unsafe_allow_html=True)
 
-    # ── Release Timeline ──────────────────────────────────────────────────────────
     st.markdown("<div class='luxury-subheading'>Release Patterns</div>", unsafe_allow_html=True)
     st.markdown("<div class='luxury-heading'>Monthly Stream Volume</div>", unsafe_allow_html=True)
 
